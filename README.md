@@ -6,4 +6,4 @@ As developers, reusing other people's code is part of our job. We are usually on
 
 Following is the list of implementations in this repository:
 
-- Reinvent-Redux
+- [Reinvent-Redux](https://github.com/zakariaelas/reinvent-x/tree/master/reinvent-redux)
