@@ -1,8 +1,8 @@
 /* https://promisesaplus.com/
  * https://www.promisejs.org/implementing/
  * https://stackoverflow.com/questions/23772801/basic-javascript-promise-implementation-attempt/23785244#23785244
- * 
- * 
+ *
+ *
  * */
 
 const PENDING = 0;
@@ -39,7 +39,6 @@ function doResolve(fn, onFulfilled, onRejected) {
   }
 }
 
-
 class MyPromise {
   constructor(func) {
     this.state = PENDING;
@@ -52,7 +51,11 @@ class MyPromise {
     try {
       var then = getThen(value);
       if (then) {
-        doResolve(then.bind(value), this.resolve.bind(this), this.reject.bind(this));
+        doResolve(
+          then.bind(value),
+          this.resolve.bind(this),
+          this.reject.bind(this)
+        );
         return;
       }
       this.state = FULFILLED;
@@ -62,14 +65,14 @@ class MyPromise {
     } catch (err) {
       this.reject(err);
     }
-  };
+  }
 
   reject(error) {
     this.state = REJECTED;
     this.value = error;
     this.handlers.forEach(this.handle.bind(this));
     this.handlers = null;
-  };
+  }
 
   then(onFulfilled, onRejected) {
     return new Promise((resolve, reject) => {
@@ -98,7 +101,7 @@ class MyPromise {
         }
       );
     });
-  };
+  }
 
   handle(handler) {
     switch (this.state) {
@@ -122,9 +125,15 @@ class MyPromise {
         onRejected
       });
     }, 0);
-  };
+  }
 }
 
+//example:
+
 new MyPromise((resolve, reject) => {
-  resolve(fetch('https://jsonplaceholder.typicode.com/todos/1').then(res => res.json()));
+  resolve(
+    fetch('https://jsonplaceholder.typicode.com/todos/1').then(res =>
+      res.json()
+    )
+  );
 }).then(console.log);
